@@ -1,17 +1,17 @@
 """ This module is python practice exercises to cover more advanced topics.
-	Many of the exercises can be found at: 
-        http://www.practicepython.org/exercises/
-		https://www.hackerrank.com/domains/python/py-introduction
-        (hackerrank will ask you to sign up, but you can just close the popup)
-	You may submit them there to get feedback on your solutions, and for a
-        discussion of how to do each exercise.
-	Put the code for your solutions to each exercise in the appropriate function.
-	DON'T change the names of the functions!
-	You may change the names of the input parameters.
-	Put your code that tests your functions in the if __name__ == "__main__": section
-	Don't forget to regularly commit and push to github.
+    Many of the exercises can be found at:
+    http://www.practicepython.org/exercises/
+    https://www.hackerrank.com/domains/python/py-introduction
+    (hackerrank will ask you to sign up, but you can just close the popup)
+    You may submit them there to get feedback on your solutions, and for a
+    discussion of how to do each exercise.
+    Put the code for your solutions to each exercise in the appropriate function.
+    DON'T change the names of the functions!
+    You may change the names of the input parameters.
+    Put your code that tests your functions in the if __name__ == "__main__": section
+    Don't forget to regularly commit and push to github.
     Please include an __author__ comment so I can tell whose code this is.
-"""
+    """
 
 # Practice Python Exercise
 # found at http://www.practicepython.org/exercises/
@@ -20,7 +20,7 @@
 def even_list_elements(input_list):
     """ Use a list comprehension/generator to return a new list that has
         only the even elements of input_list in it.
-    """
+        """
     return [num for num in input_list if num % 2 == 0]
 
 
@@ -29,7 +29,7 @@ def even_list_elements(input_list):
 def list_overlap_comp(list1, list2):
     """ Use a list comprehension/generator to return a list that contains
         only the elements that are in common between list1 and list2.
-    """
+        """
     return [a for a in list1 for b in list2 if a==b]
 
 
@@ -40,7 +40,7 @@ def list_overlap_comp(list1, list2):
 def cube_triples(input_list):
     """ Use a list comprehension/generator to return a list with the cubes
         of the numbers divisible by three in the input_list.
-    """
+        """
     return [num**3 for num in input_list if num%3 == 0]
 
 
@@ -51,52 +51,97 @@ def cube_triples(input_list):
 def longest_sentence(text_file_name):
     """ Read from the text file, split the data into sentences,
         and return the longest sentence in the file.
-    """
+        """
     with open(text_file_name, 'r') as open_file:
         text = open_file.read()
-    print(text)
-    ending_exists = 1
-    sentences = []
-    sentencelengths = []
-    while ending_exists == 1:
+    text.replace("?", ".")
+    text.replace("!", ".")
+    realtext = text.split(".")
+    sentenceDict = {}
+    maxLength = 0
+    for sentence in realtext:
+        sentenceDict[len(sentence)] = sentence
+        if len(sentence) > maxLength:
+            maxLength = len(sentence)
 
-        sentences.append([text[text.find('.')+1:]])
-        print("first sentence:", [text[text.find('.')+1:]])
-        sentencelengths.append([text.find('.')])
-        print(sentences)
-        print(sentencelengths)
-        text = text[text.find('.')+1:]
-        print("text", text)
-        if text.find('.') < 0:
-            ending_exists == 0
-            ending_exists == 0
-
-    return
+return sentenceDict[maxLength]
 
 
-# def longest_word(text_file_name):
-#     """ Read from the text file, split the data into words,
-#         and return the longest word in the file.
-#     """
-#
-#
-#
-# def num_unique_words(text_file_name):
-#     """ Read from the text file, split the data into words,
-#         and return the number of unique words in the file.
-#         HINT: Use a set!
-#     """
-#
-#
-#
-# def most_frequent_word(text_file_name):
-#     """ Read from the text file, split the data into words,
-#         and return a tuple with the most frequently occuring word
-#         in the file and the count of the number of times it appeared.
-#     """
-#
-#
-#
+def longest_word(text_file_name):
+    """ Read from the text file, split the data into words,
+        and return the longest word in the file.
+        """
+    with open(text_file_name, 'r') as open_file:
+        text = open_file.read()
+    text = text.replace(",", " ")
+    text = text.replace(".", " ")
+    text = text.replace("?", " ")
+    text = text.replace("!", " ")
+    text = text.replace("\"", " ")
+    text = text.replace("\'", " ")
+    realtext = text.split(" ")
+    wordDict = {}
+    maxLength = 0
+    for word in realtext:
+        wordDict[len(word)] = word
+        if len(word) > maxLength:
+            maxLength = len(word)
+    return wordDict[maxLength]
+
+
+
+
+def num_unique_words(text_file_name):
+    """ Read from the text file, split the data into words,
+        and return the number of unique words in the file.
+        HINT: Use a set!
+        """
+    with open(text_file_name, 'r') as open_file:
+        text = open_file.read()
+    text = text.replace(",", " ")
+    text = text.replace(".", " ")
+    text = text.replace("?", " ")
+    text = text.replace("!", " ")
+    text = text.replace("\"", " ")
+    text = text.replace("\'", " ")
+    realtext = text.split(" ")
+    wordSet = set()
+    for word in realtext:
+        wordSet.add(word)
+    return len(wordSet)
+
+
+def most_frequent_word(text_file_name):
+    """ Read from the text file, split the data into words,
+        and return a tuple with the most frequently occuring word
+        in the file and the count of the number of times it appeared.
+        """
+    with open(text_file_name, 'r') as open_file:
+        text = open_file.read()
+    print("text:", text)
+    text = text.replace(",", "")
+    text = text.replace(".", "")
+    text = text.replace("?", "")
+    text = text.replace("!", "")
+    text = text.replace("\"", "")
+    text = text.replace("\'", "")
+    realtext = text.split(" ")
+    wordDict = {}
+    maxNumWord = "filler"
+    maxLength = 0
+    for word in realtext:
+        if word in wordDict:
+            wordDict[word] += 1
+        else:
+            wordDict[word] = 1
+    for word in wordDict:
+        if wordDict[word] > maxLength:
+            maxLength = wordDict[word]
+            maxNumWord = word
+
+return maxNumWord, maxLength
+
+
 # # Hackerrank Class Exercises
 # # found at https://www.hackerrank.com/domains/python/py-classes
 #
@@ -187,7 +232,7 @@ def longest_sentence(text_file_name):
 #
 #
 if __name__ == "__main__":
-     # put your test code here
+    # put your test code here
     input_list = [1,2,3,4,5,6,7,8,9]
-    print(longest_sentence("data.txt"))
+    print(most_frequent_word("data.txt"))
 
